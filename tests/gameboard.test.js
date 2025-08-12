@@ -17,12 +17,12 @@ describe("Gameboard class", () => {
 
   test("game.ships equal [ship]", () => {
     game.placeShip(ship, [0, 0], true);
-    expect(game.ships).toEqual([ship]);
+    expect(game.ships).toEqual(1);
   });
 
-  test("game.attacked.has('0,0') equal true", () => {
+  test("game.attackedCoord.has('0,0') equal true", () => {
     game.recieveAttack([0, 0]);
-    expect(game.attacked.has("0,0")).toBe(true);
+    expect(game.attackedCoord.has("0,0")).toBe(true);
   });
 
   test("game.isOutBound equal false", () => {
@@ -40,5 +40,29 @@ describe("Gameboard class", () => {
   test("game.isOverlap equal true", () => {
     game.placeShip(ship, [0, 0], true);
     expect(game.isOverlap([0, 0], 3, true)).toBe(true);
+  });
+
+  test("attacked same coordinat equal null", () => {
+    game.recieveAttack([0, 0]);
+    expect(game.recieveAttack([0, 0])).toBe(null);
+  });
+
+  test("attack empty coord return 'miss'", () => {
+    game.placeShip(ship, [0, 0], true);
+    expect(game.recieveAttack([1, 0])).toBe("miss");
+  });
+
+  test("attack ship coord return 'hit'", () => {
+    game.placeShip(ship, [0, 0], true);
+    expect(game.recieveAttack([0, 0])).toBe("hit");
+  });
+
+  test("if all ship is sunk return true", () => {
+    expect(game.allShipSunk()).toBe(true);
+  });
+
+  test("if all ship not sunk return false", () => {
+    game.placeShip(ship, [0, 0], true);
+    expect(game.allShipSunk()).toBe(false);
   });
 });
