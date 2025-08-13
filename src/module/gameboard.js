@@ -6,7 +6,7 @@ export default class Gameboard {
     this.board = Array.from({ length: this.size }, () =>
       Array(this.size).fill(null)
     );
-    this.ships = [];
+    this.ships = 0;
     this.attackedCoord = new Set();
   }
 
@@ -23,7 +23,7 @@ export default class Gameboard {
       const c = horizontal ? col + i : col;
       this.board[r][c] = ship;
     }
-    this.ships.push(ship);
+    this.ships++;
   }
 
   isOutBound([row, col], length, horizontal) {
@@ -50,7 +50,7 @@ export default class Gameboard {
   }
 
   recieveAttack([row, col]) {
-    if (this.attackedCoord.has([row, col].toString())) return;
+    if (this.attackedCoord.has([row, col].toString())) return null;
     if (this.isMiss([row, col])) {
       this.attackedCoord.add([row, col].toString());
       return "miss";
@@ -67,5 +67,9 @@ export default class Gameboard {
 
   isHit([row, col]) {
     return this.board[row][col] !== null;
+  }
+
+  allShipSunk() {
+    return this.ships === 0;
   }
 }
