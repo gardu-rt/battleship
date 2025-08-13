@@ -12,7 +12,7 @@ describe("Player class", () => {
   });
 
   test("shot at [0, 0] return hit", () => {
-    opponent.board.placeShip(ship, [0, 0], true);
+    opponent.placeShip(ship, [0, 0], true);
     expect(player.attack(opponent, [0, 0])).toBe("hit");
   });
 });
