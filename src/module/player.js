@@ -1,13 +1,18 @@
 import Gameboard from "./gameboard.js";
-import Ship from "./ship.js";
 
-export default class Player {
+export default class Player extends Gameboard {
   constructor(isComputer = false) {
-    this.board = new Gameboard();
+    super();
     this.isComputer = isComputer;
   }
 
   attack(opponentBoard, [x, y]) {
-    return opponentBoard.board.recieveAttack([x, y]);
+    return opponentBoard.recieveAttack([x, y]);
+  }
+
+  generateRandomCoord() {
+    const x = Math.floor(Math.random() * 10);
+    const y = Math.floor(Math.random() * 10);
+    return [x, y];
   }
 }
