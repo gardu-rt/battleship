@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+body {
+  background-color: black;
+}
+
+.container {
+  color: white;
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+h2 {
+  text-align: center;
+}
+
+h1 + div {
+  position: absolute;
+  top: 0;
+  font-size: 12px;
+}
+
+#roster-sidebar,
+#stats-sidebar {
+  border-radius: 5px;
+  text-align: center;
+  padding: 8px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+button {
+  background-color: yellow;
+  border: 1px solid #1f812c;
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#roster-sidebar li {
+  padding: 8px;
+  background-color: #1f812c;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.game-container {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 406px 406px 1fr;
+  gap: 40px;
+}
+
+#roster-sidebar,
+#stats-sidebar {
+  background-color: yellowgreen;
+}
+
+.grid-container {
+  width: 406px;
+}
+
+.grid {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  width: 100%;
+  background-color: aquamarine;
+  border: 5px solid #1f812c;
+  border-radius: 5px;
+}
+
+.grid-ship {
+  background-color: blue;
+}
+
+.cell {
+  border: 1px solid #1f812c;
+}
