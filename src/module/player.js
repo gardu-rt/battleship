@@ -11,8 +11,8 @@ export default class Player extends Gameboard {
   }
 
   generateRandomCoord() {
-    const x = Math.floor(Math.random() * 10);
-    const y = Math.floor(Math.random() * 10);
+    const x = Math.floor(Math.random() * this.size);
+    const y = Math.floor(Math.random() * this.size);
     return [x, y];
   }
 }
