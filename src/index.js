@@ -175,10 +175,16 @@ function placeShipsRandomly(player) {
 let gameStarted = false;
 
 startGameBtn.addEventListener("click", () => {
+  if (startGameBtn.textContent === "Reset Game") {
+    resetGame();
+    return;
+  }
+
   placeShipsRandomly(computer);
   gameStarted = true;
-  playerTurn = true;
+  playerTurn = true; // Player always starts
   updateTurnIndicator();
+  startGameBtn.disabled = true; // Disable after starting
   alert("Game started! Click on the enemy grid to attack.");
 });
 
@@ -203,6 +209,13 @@ function updateTurnIndicator() {
   }
 }
 
+function endGame(winner) {
+  alert(winner + " wins!");
+  gameStarted = false;
+  startGameBtn.textContent = "Reset Game";
+  startGameBtn.disabled = false;
+}
+
 function handleAttack(row, col) {
   if (!playerTurn) return;
 
@@ -215,14 +228,12 @@ function handleAttack(row, col) {
   );
   cell.style.backgroundColor = result === "hit" ? "red" : "white";
 
-  // If that hit caused the ship to sink → mark all its cells
   if (result === "hit" && targetShip.isSunk()) {
     markSunkShip(targetShip, computer, "enemy");
   }
 
   if (computer.allShipSunk()) {
-    alert("🎉 You win!");
-    gameStarted = false;
+    endGame("🎉 You");
     return;
   }
 
@@ -253,8 +264,7 @@ function computerTurn() {
   }
 
   if (human.allShipSunk()) {
-    alert("💻 Computer wins!");
-    gameStarted = false;
+    endGame("💻 Computer");
     return;
   }
 
@@ -286,4 +296,39 @@ function markSunkShip(ship, boardOwner, ownerType) {
       }
     }
   }
+}
+
+function resetGame() {
+  // Clear boards in DOM
+  humanGrid.innerHTML = "";
+  computerGrid.innerHTML = "";
+
+  // Reset players
+  human.board = Array.from({ length: 10 }, () => Array(10).fill(null));
+  human.ships = 0;
+  human.attackedCoord.clear();
+
+  computer.board = Array.from({ length: 10 }, () => Array(10).fill(null));
+  computer.ships = 0;
+  computer.attackedCoord.clear();
+
+  // Reset roster
+  document.querySelectorAll("#roster-sidebar li").forEach((li) => {
+    li.classList.remove("placed");
+    li.style.backgroundColor = "";
+  });
+
+  placedShips = 0;
+  selectedShipLength = null;
+  selectedShipName = null;
+  playerTurn = true;
+  gameStarted = false;
+
+  createGrid(humanGrid, false);
+  createGrid(computerGrid, true);
+  updateTurnIndicator();
+
+  // Button back to Start Game
+  startGameBtn.textContent = "Start Game";
+  startGameBtn.disabled = true;
 }
